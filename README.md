@@ -8,9 +8,13 @@ Data Folder:
 
 Includes all the datasets used in the research. The key files are:
 
-Gat201_samplesheet.csv: Details the experimental design, outlining the conditions and samples used in the experiments.
+Gat201_samplesheet.csv: 
 
-counts_all.csv: Provides gene expression data, representing the expression levels of each gene under various conditions.
+Details the experimental design, outlining the conditions and samples used in the experiments.
+
+counts_all.csv: 
+
+Provides gene expression data, representing the expression levels of each gene under various conditions.
 
 H99_all_genes_promoter_500nt_2mer_counts.csv
 
