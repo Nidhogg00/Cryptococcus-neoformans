@@ -978,42 +978,8 @@ contribution_df <- data.frame(Principal_Component = 1:length(pca_contribution),
                               Contribution = pca_contribution) %>% 
     dplyr::arrange(desc(Contribution))  # Sort by contribution rate
 
-# Extract the top principal components based on their contribution
-num_components <- 300  
-pca_features <- pca_model$x[, 1:num_components]
 
-# Select the top components with the highest contribution rates
-top_components <- contribution_df$Principal_Component[1:num_components]
-
-# Extract the contribution rates of these top components
-top_contributions <- pca_contribution[top_components]
-
-# Calculate the total contribution rate of the selected top components
-total_contribution <- sum(top_contributions)
-
-# Plot the cumulative explained variance by principal components
-explained_variance_ratio <- pca_model$sdev^2 / sum(pca_model$sdev^2)
-cumulative_explained_variance <- cumsum(explained_variance_ratio)
-
-df <- data.frame(Principal_Component = 1:length(cumulative_explained_variance),
-                 Cumulative_Explained_Variance = cumulative_explained_variance)
-
-ggplot(df, aes(x = Principal_Component, y = Cumulative_Explained_Variance)) +
-    geom_line(color = "blue") +
-    geom_point(color = "blue") +
-    geom_hline(yintercept = 0.9556, linetype = "dashed", color = "red") + 
-    # Add a horizontal line at 0.9556
-    geom_vline(xintercept = which(cumulative_explained_variance >= 0.9556)[1], 
-               linetype = "dashed", color = "red") +  
-    # Add a vertical line for the corresponding component number
-    labs(title = "Cumulative Explained Variance by Principal Components",
-         x = "Number of Principal Components",
-         y = "Cumulative Explained Variance") +
-    theme_minimal()
-
-# Extract the features (k-mers) corresponding to the selected 
-#principal components
-pca_features <- pca_model$x[, top_components]
+pca_features <- pca_model$x
 
 # Use the original count data for the LASSO regression
 counts <- df_reg_allmers_s$Count
@@ -1086,22 +1052,8 @@ contribution_df <- data.frame(Principal_Component = 1:length(pca_contribution),
                               Contribution = pca_contribution) %>% 
     dplyr::arrange(desc(Contribution))  # Sort by contribution rate
 
-# Extract the top 300 principal components based on their contribution
-num_components <- 300  
-pca_features <- pca_model$x[, 1:num_components]
 
-# Select the top 300 components with the highest contribution rates
-top_components <- contribution_df$Principal_Component[1:num_components]
-
-# Extract the contribution rates of these top components
-top_contributions <- pca_contribution[top_components]
-
-# Calculate the total contribution rate of the selected top components
-total_contribution <- sum(top_contributions)
-
-# Extract the features (k-mers) corresponding to the selected principal 
-#components
-pca_features <- pca_model$x[, top_components]
+pca_features <- pca_model$x
 
 # Use the original count data for the LASSO regression
 counts <- df_reg_allmers_s$Count
